@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 # usage: python3 nozomi.py 
 # verbose: python3 nozomi.py -v yes
-# manual run example: python3 nozomi.py -l nozomiList.txt -e 1681403833000 -n myHost.com -u myUser -p 'myPass'
+# manual run example using a list: python3 nozomi.py -l nozomiList.txt -e 1681403833000 
+# manual run example using a single host: python3 nozomi.py -n hostname.com -e 1681403833000 
+# manual run example using credentials: python3 nozomi.py -n hostname.com -e 1681403833000 -u myUser -p 'myPass'
 # list file must be in FQDN format
 # enclose passwords in single quotes (not double)
 # epoch time must be in millisecond format
