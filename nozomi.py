@@ -178,7 +178,7 @@ while(x<len(myList) ):
             ## assets 
             query="assets"
             timeparam = "last_activity_time"
-            #timeparam = "created_at"
+            #timeparam = "created_at"  ## this is used by addon, but the above time param provides better data
             outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
             pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
             ## node_cpes 
