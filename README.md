@@ -1,9 +1,7 @@
 This script was written to replace the current nozomi-splunk addon provided by nozomi (TA-nozomi-networks-addon).  The current version of the nozomi addon uses an individual python process for EACH input and each data type.   Because the addon doesnt consolidate CPU, an org with many nozomi guardian devices will find their server becoming quite unstable very quickly.  In most cases, our server failed to run many of the inputs as well as other addons and scripts on that server.  So I wrote this to loop through all the inputs using the same API commands in use on the addon.  <br><br>
 
 INSTALL: <br>
-copy the nozomi.py file to a location on your linux server.  edit the file and fill in the fields at the top (username, password, outputFolder, listFile).  If you have git installed, you can run: <br>
-# git clone https://github.com/bramuno/nozomi-splunk.git
-<br><br>
+copy the nozomi.py file to a location on your linux server.  edit the file and fill in the fields at the top (username, password, outputFolder, listFile).  If you have git installed, you can use git clone with the repo url. <br><br>
 <ul>
   <li>Username & password are credentials for a user account on the nozomi guardian</li>
   <li>outputFolder is the location where the script will place the data is has collected from the noomi guardians</li>
