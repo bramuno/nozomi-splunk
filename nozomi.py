@@ -103,8 +103,13 @@ def pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam):
             f=open(outputFile, 'a') ## 'a' creates if not exist
             f.write(data)
             f.close()
+    except HTTPError as err:
+        print(str(err))
+    except socket.timeout as err:
+        print(str(err))
+    except RequestException as err:
+        print(str(err))
     except requests.exceptions.ConnectionError as err:
-        #raise SystemExit(err)
         print(err)
 
 f=open(listFile, 'r')
