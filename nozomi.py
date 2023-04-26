@@ -19,7 +19,7 @@ mepoch=None
 mhostname = None
 verbose = 0
 ### no edits below this line
-user=None;password=None;epoch=None;hostname=None;outputFolder=None;listFile=None;hostShort=""
+user=None;password=None;epoch=None;hostname=None;outputFolder=None;listFile=None;
 import requests, os, subprocess, json, datetime, time, os.path, pdb, argparse, glob, sys, socket
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -91,12 +91,9 @@ def pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam):
         req.raise_for_status()
         res = req.json()
         data = json.dumps(res["result"])
-        if "." in str(hostname):
-            hostShort = hostname.split(".")
-            hostShort = str(hostShort[0])
         # check for empty hostname and add it if needed
-        data = data.replace('"appliance_host": ""','"appliance_host": "'+str(hostShort)+'"')
-        data = data.replace('"appliance_host": null','"appliance_host": "'+str(hostShort)+'"')
+        data = data.replace('"appliance_host": ""','"appliance_host": "'+str(hostname)+'"')
+        data = data.replace('"appliance_host": null','"appliance_host": "'+str(hostname)+'"')
         if verbose != 0:
             print("total "+str(query)+" recieved: "+str(res["total"]))
         if int(res["total"]) > 0:
