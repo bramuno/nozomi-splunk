@@ -30,7 +30,7 @@ import socket
 from socket import AF_INET, SOCK_DGRAM
 ############################################
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--verbose", help = "verbose output", required=False )
+parser.add_argument("-v", "--verbose", help = "verbose output", required=False )
 parser.add_argument("-u", "--user", help = "username", required=False )
 parser.add_argument("-p", "--password", help = "password of user account", required=False )
 parser.add_argument("-l", "--listFile", help = "list file to use", required=False )
@@ -97,19 +97,17 @@ def pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam):
             hostShort = str(hostShort[0])
         # check for empty hostname and add it if needed
         data = data.replace('"appliance_host": ""','"appliance_host": "'+str(hostShort)+'"')
+        data = data.replace('"appliance_host": null','"appliance_host": "'+str(hostShort)+'"')
         if verbose != 0:
             print("total "+str(query)+" recieved: "+str(res["total"]))
         if int(res["total"]) > 0:
+            if verbose == 2:
+                print("writing "+str(res["total"])+" events to file: "+str(outputFile))
             f=open(outputFile, 'a') ## 'a' creates if not exist
             f.write(data)
             f.close()
-    except HTTPError as err:
-        print(str(err))
-    except socket.timeout as err:
-        print(str(err))
-    except RequestException as err:
-        print(str(err))
     except requests.exceptions.ConnectionError as err:
+        #raise SystemExit(err)
         print(err)
 
 f=open(listFile, 'r')
@@ -178,7 +176,7 @@ while(x<len(myList) ):
             ## assets 
             query="assets"
             timeparam = "last_activity_time"
-            #timeparam = "created_at"  ## this is used by addon, but the above time param provides better data
+            #timeparam = "created_at"
             outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
             pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
             ## node_cpes 
@@ -191,5 +189,41 @@ while(x<len(myList) ):
             timeparam = "cve_update_time"
             outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
             pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## health logs
+            timeparam = "time"
+            query="health_log"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## assertions
+            timeparam = "time"
+            query="assertions"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## link events
+            timeparam = "time"
+            query="link_events"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## node points
+            timeparam = "time"
+            query="node_points"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## captured urls
+            timeparam = "time"
+            query="captured_urls"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## links
+            timeparam = "last_activity_time"
+            query="links"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+            ## variables
+            timeparam = "last_update_time"
+            query="variables"
+            outputFile = outputFolder + "/"+str(hostname)+"-"+str(query)+".log"
+            pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
+
     x=x+1
 os.system("sudo find /data1/syslog-ng/nozomi/ -empty  -exec rm -f {} \;")
