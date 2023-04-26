@@ -4,7 +4,7 @@ INSTALL: <br>
 copy the nozomi.py file to a location on your linux server.  edit the file and fill in the fields at the top (username, password, outputFolder, listFile).  If you have git installed, you can use git clone with the repo url. <br><br>
 <ul>
   <li>Username & password are credentials for a user account on the nozomi guardian</li>
-  <li>outputFolder is the location where the script will place the data is has collected from the noomi guardians</li>
+  <li>outputFolder is the location where the script will place the data is has collected from the nozomi guardians</li>
   <li>listFile is the file that contains a line separated list of FQDN hostnames of the nozomi devices (eg.  myHostname.com)</li>
   </ul>
   <br><br>
