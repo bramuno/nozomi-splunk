@@ -102,10 +102,15 @@ def pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam):
             f=open(outputFile, 'a') ## 'a' creates if not exist
             f.write(data)
             f.close()
-    except requests.exceptions.ConnectionError as err:
-        #raise SystemExit(err)
-        print(err)
-
+    except requests.exceptions.ConnectionError as errMsg:
+        print(str(errMsg))
+    except HTTPError as errMsg:
+        print(str(errMsg))
+    except socket.timeout as errMsg:
+        print(str(errMsg))
+    except RequestException as errMsg:
+        print(str(errMsg))
+#
 f=open(listFile, 'r')
 read = f.read()
 f.close()
@@ -119,7 +124,7 @@ if not os.path.exists(outputFolder):
 if hostname is not None:
     myList = [ hostname ]
 if epoch is None:
-    # get last 30m of data - this should match the crontab iteration
+    # get last 30m of data - this should match the crontab interval
     tgtEepoch = datetime.datetime.now() - datetime.timedelta(minutes=interval)
     tgtEepoch = str(tgtEepoch.strftime('%s'))+"000"
     if verbose != 0:
