@@ -15,3 +15,4 @@ If everything works as expected without errors, create a cron job withtout the -
 If you see lots of errors, run with '-v 2' to see all of the URLs it's using.  Test them on postman to confirm.  Verify connectivity to the nozomi devices and verify the account works.  <br><br>
 The script will go through the list of devices and gather the various types of data one by one, then move to the next hostname on the list.   If you don't want certain types of data, you can just comment out the call to the pull() function as needed.   <br><br>
 You can run the script manually with the various paramter flags as defined in the notes at the beginning of the file.<br><br>
+When your data is writing to the folder, setup a splunk input to monitor as needed.<br>
