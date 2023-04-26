@@ -86,7 +86,6 @@ def pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam):
     URL = "https://"+str(hostname)+"/api/open/query/do?query="+str(query)+"%20%7C%20where%20"+str(timeparam)+"%20%3E%20"+str(tgtEepoch)+"%20%7C%20sort%20"+str(timeparam)+"%20asc%20%7C%20head%20"+str(max)
     if verbose == 2:
         print("URL for "+str(query)+" events: "+str(URL))
-    PARAMS = {'username':user, 'password': password }
     try:
         req = requests.get(url = URL, auth=HTTPBasicAuth(user, password), verify=False)
         req.raise_for_status()
@@ -143,7 +142,6 @@ while(x<len(myList) ):
         URL = "https://"+str(hostname)+"/api/open/query/do?query=alerts%20%20%7C%20where%20created_time%20%3E%20"+str(tgtEepoch)+"%20%7C%20sort%20created_time%20asc%20%7C%20head%201"
         if verbose != 0:
             print("testing '"+str(myList[x])+"'\nURL: "+str(URL)+"")
-        PARAMS = {'username':user, 'password': password }
         errMsg = ""; aaa = "timed out"
         try:
             aaa = requests.get(url = URL, auth=HTTPBasicAuth(user, password), verify=False, timeout=3)
