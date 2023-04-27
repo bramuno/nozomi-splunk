@@ -226,4 +226,4 @@ while(x<len(myList) ):
             pull(hostname, query, tgtEepoch, user, password, outputFile, timeparam )
 
     x=x+1
-os.system("sudo find /data1/syslog-ng/nozomi/ -empty  -exec rm -f {} \;")
+os.system("sudo find "+str(outputFolder)+" -empty  -exec rm -f {} \;")
