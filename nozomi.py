@@ -10,6 +10,7 @@
 # can only use -l or -n but not both
 #
 ## edit the below fields to skip command line parameters.  epoch and hostname are optional
+## username and password should be the same on all guardian devices
 muser = "username"
 mpassword = "password"
 moutputFolder = "/path/to/folder"
